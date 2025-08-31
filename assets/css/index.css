@@ -1,0 +1,958 @@
+:root {
+            --primary-color: #0d6efd;
+            --secondary-color: #6c757d;
+            --light-bg: #f8f9fa;
+            --teal-accent: #1abc9c; /* Warna hijau toska yang mirip di gambar */
+            --text-dark: #212529;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: white;
+            line-height: 1.7;
+        }
+
+        .navbar-brand .brand-text {
+            font-family: 'Pacifico', cursive;
+            font-size: 2rem;
+            color: var(--text-dark) !important;
+            transform: translateY(4px);
+        }
+
+        .hero-section {
+            display: flex;
+            align-items: center;
+            min-height: 90vh;
+            padding: 4rem 0;
+        }
+
+        .hero-text h1 {
+            font-weight: 800;
+            font-size: 3.5rem;
+            line-height: 1.2;
+            color: var(--text-dark);
+        }
+        
+        .hero-text .highlight {
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+        }
+
+        .info-pills .pill {
+            background-color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-top: 1rem;
+        }
+        
+        .info-pills .pill i {
+            color: var(--teal-accent);
+        }
+
+        .hero-illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative; /* INI PENTING UNTUK Z-INDEX */
+        }
+
+
+        .hero-illustration i {
+            font-size: 20rem;
+            color: var(--primary-color);
+            opacity: 0.1;
+        }
+
+        /* --- KODE CSS BARU UNTUK TOMBOL LOGIN & DAFTAR --- */
+        .user-profile {
+            width: 131px;
+            height: 51px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            background: linear-gradient(
+                to bottom right,
+                #2e8eff 0%,
+                rgba(46, 142, 255, 0) 30%
+            );
+            background-color: rgba(46, 142, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-profile:hover,
+        .user-profile:focus {
+            background-color: rgba(46, 142, 255, 0.7);
+            box-shadow: 0 0 30px rgba(46, 142, 255, 0.5);
+            outline: none;
+        }
+
+        .user-profile-inner {
+            width: 127px;
+            height: 47px;
+            border-radius: 13px;
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .user-profile-inner svg {
+            width: 27px;
+            height: 27px;
+            fill: #fff;
+        }
+
+        .user-profile-inner p {
+            margin: 0;
+        }
+        
+        .register-btn {
+            background: linear-gradient(
+                to bottom right,
+                #00c8ffff 100%,
+                rgba(255, 255, 255, 0) 30%
+            );
+            background-color: rgba(0, 191, 255, 1);
+        }
+
+        .register-btn:hover,
+        .register-btn:focus {
+            background-color: rgba(0, 175, 250, 1);
+            box-shadow: 0 0 30px rgba(241, 0, 241, 1);
+        }
+
+        .register-btn .user-profile-inner {
+            background-color: #ffffff;
+            color: #1a1a1a;
+        }
+
+        .register-btn .user-profile-inner svg {
+            fill: #1a1a1a;
+        }
+
+        /* --- MODIFIKASI CSS UNTUK LIVE CHAT --- */
+        .chat-bubble-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #25D366;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            border: none;
+        }
+
+        .chat-bubble-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+
+        .chat-bubble-btn svg {
+            width: 32px;
+            height: 32px;
+            fill: white;
+        }
+
+        .chat-popup {
+            display: none; /* Diubah jadi 'flex' oleh JS */
+            flex-direction: column;
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            width: 450px;
+            height: 400px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+            z-index: 1001;
+            overflow: hidden;
+            font-family: 'Poppins', sans-serif;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        
+        .chat-popup.show {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .chat-header {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .chat-header .profile-pic {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            margin-right: 15px;
+            background-color: #fff; /* Bisa dihapus jika tidak perlu background */
+        }
+        
+        .chat-header .profile-pic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* Ini bagian terpenting */
+            border-radius: 50%;
+        }
+        
+        .chat-header .agent-info .title {
+            font-weight: 600;
+            display: block;
+            line-height: 1.2;
+        }
+
+        .chat-header .agent-info .status {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+        
+        .chat-header .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 15px;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            background: none;
+            border: none;
+        }
+
+        .chat-body {
+            padding: 20px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        
+        .chat-message-admin {
+            background-color: #e9f5ff;
+            padding: 12px 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            max-width: 80%;
+            align-self: flex-start;
+            position: relative;
+        }
+
+        .chat-message-admin .sender {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 5px;
+            font-size: 13px;
+        }
+
+        .chat-form {
+            padding: 15px 20px;
+            border-top: 1px solid #eee;
+            flex-shrink: 0;
+        }
+
+        .chat-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            resize: none;
+            height: 60px;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .chat-form textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.25);
+        }
+        
+        .chat-form .send-button {
+            display: block;
+            width: 100%;
+            background-color: #dc3545;
+            color: white;
+            text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .chat-form .send-button:hover {
+            background-color: #c82333;
+        }
+
+        @media (max-width: 480px) {
+        .chat-popup {
+            width: 90%;   /* biar otomatis menyesuaikan di layar HP */
+            right: 5%;
+            height: 400px;
+        }
+        }
+
+        .chat-message-admin {
+            white-space: nowrap;  /* cegah teks pindah baris */
+            max-width: none;      /* hilangkan batas lebar */
+        }
+
+        .chat-message-admin .message-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 8px;
+        }
+
+        .chat-message-admin .message-status {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 12px;
+            color: #555;
+            flex-shrink: 0;
+        }
+
+        .chat-message-admin .checkmarks {
+            color: #1DA1F2; /* biru */
+            font-size: 14px;
+        }
+
+        /* --- KODE CSS UNTUK SECTION TENTANG KAMI --- */
+        #tentang-kami {
+            padding: 80px 0;
+            background-color: #fff; /* Dibuat putih agar kontras dengan section fitur */
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-title .sub-heading {
+            font-size: 1rem;
+            color: var(--secondary-color);
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .section-title p {
+            font-size: 1.1rem;
+            color: var(--secondary-color);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: flex;
+            flex-wrap: wrap; /* Agar responsif di layar kecil */
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px; /* Lebar minimum untuk gambar */
+        }
+
+        .about-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .about-text {
+            flex: 1;
+            min-width: 300px; /* Lebar minimum untuk teks */
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .about-text p {
+            margin-bottom: 15px;
+            text-align: justify;
+            color: var(--secondary-color);
+        }
+
+        /* --- KODE CSS UNTUK SECTION FITUR (MENGAPA KAMI) --- */
+        #features {
+            padding: 80px 0;
+            background-color: var(--light-bg);
+        }
+
+        .feature-card {
+            background-color: #fff;
+            padding: 35px 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            height: 100%; /* Membuat semua card sama tinggi */
+            position: relative; /* Untuk positioning badge */
+            overflow: hidden; /* Untuk badge */
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 20px auto;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #fff;
+            /* TAMBAHKAN BARIS DI BAWAH INI */
+            animation: animasi-memantul 1.5s ease-in-out infinite;
+        }
+
+        .feature-card h4 {
+            font-weight: 600;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+        }
+
+        /* Warna-warni untuk ikon */
+        .icon-terpercaya { background-color: #20c997; } /* Hijau */
+        .icon-profesional { background-color: #fd7e14; } /* Oranye */
+        .icon-express { background-color: #0d6efd; } /* Biru */
+        .icon-pembayaran { background-color: #6f42c1; } /* Ungu */
+        
+        .badge-best {
+            position: absolute;
+            top: 15px;
+            left: -35px;
+            background-color: var(--teal-accent);
+            color: white;
+            padding: 4px 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transform: rotate(-45deg);
+        }
+        .font-pacifico {
+            font-family: 'Pacifico', cursive;
+        }
+
+        /* --- KODE CSS UNTUK ANIMASI IKON --- */
+        @keyframes animasi-memantul {
+        0%, 100% {
+            transform: translateY(0);
+        }
+        50% {
+            transform: translateY(-8px);
+        }
+        }
+
+        @keyframes animasi-bergoyang {
+        0% { transform: rotate(0deg); }
+        25% { transform: rotate(-8deg); }
+        50% { transform: rotate(8deg); }
+        75% { transform: rotate(-5deg); }
+        100% { transform: rotate(0deg); }
+        }
+
+        @keyframes animasi-berputar {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+        }
+        
+        .feature-card:hover .feature-icon {
+            animation: animasi-memantul 1.5s ease-in-out infinite;
+        }
+
+        /* --- AWAL CSS UNTUK TESTIMONI PELANGGAN (BARU) --- */
+        .testimonial-section {
+            padding: 80px 0;
+            /* HAPUS background-color: #fff; */
+            background-image: url('../img/testimoni.png'); /* <-- GANTI NAMA FILE INI SESUAI GAMBAR ANDA */
+            background-size: cover;       /* <-- TAMBAHKAN INI */
+            background-position: center;  /* <-- TAMBAHKAN INI */
+            background-attachment: fixed; /* <-- TAMBAHKAN INI (EFEK PARALLAX) */
+            position: relative;           /* <-- TAMBAHKAN INI */
+            z-index: 1;                   /* <-- TAMBAHKAN INI */
+        }
+
+        /* CSS BARU UNTUK OVERLAY TRANSPARAN */
+        .testimonial-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(173, 216, 230, 0.75); /* <-- INI WARNA BIRU MUDA TRANSPARAN */
+            z-index: -1;
+        }
+
+        .testimonial-section .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .testimonial-section .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #1a253c;
+            margin: 0;
+        }
+
+        .testimonial-section .section-header p {
+            font-size: 1.1rem;
+            color: #454545ff;
+            margin-top: 10px;
+        }
+
+        .testimonial-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+            display: flex;
+            flex-direction: column;
+            height: 100%; 
+            box-sizing: border-box;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .testimonial-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-card .quote-icon {
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .testimonial-text {
+            font-size: 1rem;
+            line-height: 1.7;
+            color: #555;
+            flex-grow: 1; 
+            margin-bottom: 25px;
+        }
+
+        .customer-profile {
+            display: flex;
+            align-items: center;
+            margin-top: auto; 
+        }
+
+        .customer-profile img {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 15px;
+            border: 3px solid #e9ecef;
+        }
+
+        .customer-details h4 {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 0 0 5px 0;
+            color: #1a253c;
+        }
+
+        .rating-stars {
+            color: #ffc107;
+            font-size: 0.9rem;
+        }
+        
+        .rating-stars i {
+            margin-right: 2px;
+        }
+
+        .swiper {
+            width: 100%;
+            padding-top: 20px;
+            padding-bottom: 50px; 
+        }
+
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+        }
+
+        .slide-content-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            width: 100%;
+        }
+
+        .swiper-pagination-bullet {
+            width: 10px;
+            height: 10px;
+            background-color: #ccc;
+            opacity: 1;
+            transition: background-color 0.3s ease, width 0.3s ease;
+        }
+
+        .swiper-pagination-bullet-active {
+            width: 25px;
+            border-radius: 5px;
+            background-color: var(--primary-color);
+        }
+
+        @media (max-width: 992px) {
+            .slide-content-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .slide-content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        /* --- AKHIR CSS UNTUK TESTIMONI PELANGGAN --- */
+        
+        /* --- (KODE LAMA DIHAPUS, GANTI DENGAN YANG BARU DI BAWAH INI) --- */
+        /* --- CSS UNTUK FOOTER BARU --- */
+        .site-footer {
+            background-color: #eaf1f8;
+            padding: 60px 0;
+            font-size: 15px;
+            line-height: 24px;
+            color: #5b6a78;
+        }
+
+        .footer-container {
+            width: 90%;
+            max-width: 1170px;
+            margin: auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        .footer-column {
+            padding: 0 15px;
+        }
+
+        .footer-column.about { width: 40%; }
+        .footer-column.links { width: 25%; }
+        .footer-column.contact { width: 30%; }
+
+        .footer-column h3 {
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo {
+            font-family: 'Pacifico', cursive;
+            font-size: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .footer-about-text {
+            margin-bottom: 25px;
+        }
+
+        .social-icons-footer a {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary-color);
+            color: #ffffff;
+            border-radius: 50%;
+            margin-right: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .social-icons-footer a:hover {
+            background-color: #0b5ed7;
+        }
+
+        .footer-links-list, .contact-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .location-info, .contact-list li {
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .location-info p, .contact-list a {
+            color: #5b6a78;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .contact-list a:hover {
+            color: var(--primary-color);
+        }
+
+        .location-info i, .contact-list i {
+            color: var(--primary-color);
+            margin-right: 15px;
+            font-size: 16px;
+            margin-top: 4px; /* Menyesuaikan posisi ikon */
+        }
+        
+        .footer-bottom {
+            border-top: 1px solid #d8e0e8;
+            padding-top: 30px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        
+        /* Media Queries untuk Footer */
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-column.about,
+            .footer-column.links,
+            .footer-column.contact {
+                width: 100%;
+                margin-bottom: 30px;
+            }
+            .location-info, .contact-list li {
+                justify-content: center;
+                align-items: center;
+            }
+            .location-info i, .contact-list i {
+                margin-top: 0;
+            }
+        }
+        .loader {
+        width: 120px;
+        height: 150px;
+        background-color: #F0F2F5;
+        background-repeat: no-repeat;
+        background-image: linear-gradient( #B0B8C4 50%, #8D99AE 51%),
+            linear-gradient(#B0B8C4, #B0B8C4), linear-gradient( #B0B8C4, #B0B8C4),
+            radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%),
+            radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%),
+            radial-gradient(ellipse at center, #aaa 25%, #eee 26%, #eee 50%, #0000 55%);
+        background-position: 0 20px, 45px 0, 8px 6px, 55px 3px, 75px 3px, 95px 3px;
+        background-size: 100% 4px, 1px 23px, 30px 8px, 15px 15px, 15px 15px, 15px 15px;
+        position: relative;
+        z-index: 1;
+        border-radius: 6%;
+        animation: shake 3s ease-in-out infinite;
+        transform-origin: center;
+        margin-left: 220px;
+        }
+
+        .loader:before {
+        content: "";
+        position: absolute;
+        left: 5px;
+        top: 100%;
+        width: 7px;
+        height: 5px;
+        background: #8D99AE;
+        border-radius: 0 0 4px 4px;
+        box-shadow: 102px 0 #8D99AE;
+        }
+
+        .loader:after {
+        content: "";
+        position: absolute;
+        width: 95px;
+        height: 95px;
+        left: 0;
+        right: 0;
+        margin: auto;
+        bottom: 20px;
+        background-color: #bbdefb;
+        background-image: linear-gradient( to right, #0004 0%, #0004 49%, #0000 50%, #0000 100% ),
+            linear-gradient(135deg, #64b5f6 50%, #607d8b 51%);
+        background-size: 30px 100%, 90px 80px;
+        border-radius: 50%;
+        background-repeat: repeat, no-repeat;
+        background-position: 0 0;
+        box-sizing: border-box;
+        border: 10px solid #B0B8C4;
+        box-shadow: 0 0 0 4px #8D99AE inset, 0 0 6px 6px #0004 inset;
+        animation: spin 3s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+        0% {
+            transform: rotate(0deg)
+        }
+
+        50% {
+            transform: rotate(360deg)
+        }
+
+        75% {
+            transform: rotate(750deg)
+        }
+
+        100% {
+            transform: rotate(1800deg)
+        }
+        }
+
+        @keyframes shake {
+        65%, 80%, 88%, 96% {
+            transform: rotate(0.5deg) scale(2.3);
+        }
+
+        50%, 75%, 84%, 92% {
+            transform: rotate(-0.5deg) scale(2.3);
+        }
+
+        0%, 50%, 100% {
+            transform: rotate(0) scale(2.3);
+        }
+        }
+        /* --- KODE CSS BARU DARI ANDA (TELAH DIADAPTASI) --- */
+
+/* Menggantikan .wrapper dengan .bubbles-container agar sesuai struktur Anda */
+/* Container dibuat menutupi seluruh area ilustrasi dan berada di belakang */
+.bubbles-container {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 0; /* Pastikan di belakang mesin cuci */ /* Agar gelembung tidak keluar dari kolom hero */
+}
+
+/* Menggantikan .wrapper div dengan .bubble */
+.bubbles-container .bubble {
+    height: 60px;
+    width: 60px;
+    /* Menghapus border lama dan menggantinya dengan gradient warna-warni */
+    /* GANTI DENGAN SEMUA BARIS INI */
+    border: 3px solid transparent; /* Border dibuat transparan */
+    background-image: linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0)), 
+    linear-gradient(45deg, rgba(0, 221, 255, 0.6), rgba(13, 110, 253, 0.7)); /* <-- GRADASI BIRU YANG ELEGAN */
+    background-origin: border-box;
+    background-clip: content-box, border-box; /* Trik agar gradien hanya muncul di border */
+    box-shadow: 0 0 15px rgba(13, 110, 253, 0.5); /* Efek glow/bersinar di luar */
+    border-radius: 50px;
+    position: absolute;
+    top: 100%; 
+    left: 10%;
+    animation: animate 4s linear infinite;
+}
+
+.bubble .dot {
+    height: 10px;
+    width: 10px;
+    border-radius: 50px;
+    /* Mengganti warna dot menjadi putih terang (pantulan cahaya) */
+    background: rgba(255, 255, 255, 0.8);
+    position: absolute;
+    top: 20%;
+    right: 20%;
+}
+
+/* Pastikan mesin cuci tetap di depan gelembung */
+.loader {
+    position: relative;
+    z-index: 1;
+}
+
+/* GANTI SEMUA ATURAN NTH-CHILD LAMA DENGAN YANG BARU INI */
+.bubbles-container .bubble:nth-child(1) { top: 20%; left: 20%; animation: animate 12s linear infinite; }
+.bubbles-container .bubble:nth-child(2) { top: 60%; left: 80%; animation: animate 15s linear infinite; }
+.bubbles-container .bubble:nth-child(3) { top: 40%; left: 40%; animation: animate 9s linear infinite; }
+.bubbles-container .bubble:nth-child(4) { top: 66%; left: 30%; animation: animate 14s linear infinite; }
+.bubbles-container .bubble:nth-child(5) { top: 90%; left: 10%; animation: animate 13s linear infinite; }
+.bubbles-container .bubble:nth-child(6) { top: 30%; left: 60%; animation: animate 11s linear infinite; }
+.bubbles-container .bubble:nth-child(7) { top: 70%; left: 20%; animation: animate 12s linear infinite; }
+.bubbles-container .bubble:nth-child(8) { top: 75%; left: 60%; animation: animate 16s linear infinite; }
+.bubbles-container .bubble:nth-child(9) { top: 50%; left: 50%; animation: animate 10s linear infinite; }
+.bubbles-container .bubble:nth-child(10) { top: 45%; left: 20%; animation: animate 15s linear infinite; }
+.bubbles-container .bubble:nth-child(11) { top: 10%; left: 90%; animation: animate 14s linear infinite; }
+.bubbles-container .bubble:nth-child(12) { top: 20%; left: 70%; animation: animate 11s linear infinite; }
+.bubbles-container .bubble:nth-child(13) { top: 20%; left: 5%; animation: animate 13s linear infinite; }
+.bubbles-container .bubble:nth-child(14) { top: 60%; left: 5%; animation: animate 12s linear infinite; }
+.bubbles-container .bubble:nth-child(15) { top: 90%; left: 80%; animation: animate 14s linear infinite; }
+/* Gelembung Tambahan */
+.bubbles-container .bubble:nth-child(16) { top: 80%; left: 50%; animation: animate 10s linear infinite; }
+.bubbles-container .bubble:nth-child(17) { top: 15%; left: 35%; animation: animate 15s linear infinite; }
+.bubbles-container .bubble:nth-child(18) { top: 55%; left: 15%; animation: animate 11s linear infinite; }
+.bubbles-container .bubble:nth-child(19) { top: 85%; left: 35%; animation: animate 16s linear infinite; }
+.bubbles-container .bubble:nth-child(20) { top: 5%; left: 55%; animation: animate 12s linear infinite; }
+.bubbles-container .bubble:nth-child(21) { top: 25%; left: 85%; animation: animate 14s linear infinite; }
+.bubbles-container .bubble:nth-child(22) { top: 70%; left: 70%; animation: animate 10s linear infinite; }
+.bubbles-container .bubble:nth-child(23) { top: 35%; left: 5%; animation: animate 15s linear infinite; }
+.bubbles-container .bubble:nth-child(24) { top: 65%; left: 45%; animation: animate 11s linear infinite; }
+.bubbles-container .bubble:nth-child(25) { top: 80%; left: 95%; animation: animate 13s linear infinite; }
+
+/* Keyframes dari kode Anda, disesuaikan agar muncul dari bawah */
+@keyframes animate {
+    0% {
+        transform: scale(0) translateY(0) rotate(70deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(1.3) translateY(-100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
